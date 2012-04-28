@@ -1,0 +1,12 @@
+\def\vasqAdjust{1}
+\def\vasqrt#1{{%
+  \setbox\z@\hbox{\m@th${#1}$}%
+  \dimen@ii\fontdimen8\textfont\thr@@ \dimen@ii-\dimen@ii
+  \dimen@\ht\z@ \advance\dimen@\vasqAdjust\dimen@ii
+  \ht\z@\dimen@
+  \setbox\tw@\hbox{\m@th$\overline{\box\z@}$}%
+  \setbox\z@\hbox{\m@th$\surd$}\dimen@\ht\tw@
+  \advance\dimen@\dp\tw@ \advance\dimen@\dimen@ii
+  \edef\vasq@nxt{\noexpand\resizebox{\noexpand\width}{\the\dimen@}%
+    {\raise\the\dp\z@\box\z@}}%
+  \lower\dp\tw@\hbox{\vasq@nxt}\box\tw@}}

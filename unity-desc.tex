@@ -1,0 +1,44 @@
+\documentclass{article}
+\usepackage{amsmath,graphicx,vasqrt}
+\begin{document}
+
+\section*{Equations that represent the unity}
+
+Here the unity is denoted as $U$.
+\begin{gather*}
+U = \prod_{n=2}^\infty \Bigl(
+      \frac{n}{n+1} \cdot \frac{n^2-1}{n(n-1)}
+    \Bigr) \\
+U = \vasqrt{\cdots\cdots\vasqrt{\vasqrt{
+  \dfrac{1+\sqrt{5}}{2}}}} \\
+U = \frac{1}{2} +
+    \frac{9801}{114818048} \cdot
+    \sum_{n=0}^\infty \frac{(109n + 4649)\cdot 5^{2n}}{124^n}
+\end{gather*}
+
+The $n$-th decimal digit of $U$, denoted as $u_n$
+can be obtained by the following equality:
+\begin{gather*}
+u_n = \begin{cases}
+  1 + ((n \bmod 5) + 3)^2 + 
+  2 \cdot \biggl(
+    \dfrac{(2n)!}{(n!)^2} \bmod 5
+  \biggr)
+   % forgive me for the poor and obscure typography....
+  & \text{if $(n \bmod 5)$!=\,0} \\
+  9
+  & \text{otherwise}
+\end{cases}
+\end{gather*}
+
+\ifx\directlua\undefined\else \directlua{
+local A, B = 1 / 2, 9801 / 114818048
+local M = 25
+local s, t = A, 0
+for n = 0, M do
+  t = (109 * n + 4649) * 5 ^ (2 * n) / 124 ^ n
+  s = s + t * B
+  print("s["..n.."] = "..s)
+end
+}\fi
+\end{document}

@@ -1,0 +1,40 @@
+\catcode64=11 %-------------------------
+\newcount\outlen
+\newcount\p@pos \p@pos=0
+\newcount\p@cpos \p@cpos=0
+\newcount\p@gpos \p@gpos=0
+\chardef\x@ten=10
+\def\p@put#1{\p@put@a#1\p@put@end}
+\def\p@put@a#1{%
+  \ifx#1\p@put@end \expandafter\p@put@end
+  \else \ifnum\p@gpos<\outlen #1\p@putsep \fi
+  \fi \p@put@a}
+\def\p@put@end\p@put@a{}
+\def\p@putsep{%
+  \advance\p@pos\@ne \advance\p@gpos\@ne
+  \ifnum\p@gpos<\outlen \ifnum\p@pos=\x@ten
+    \advance\p@cpos\@ne \p@pos\z@
+    \ifnum\p@cpos<\x@ten \space
+    \else \par\p@cpos\z@ \fi
+  \fi\fi}
+\newcount\c@n
+{\lccode33=57 \lowercase{\xdef\c@en{!}}}
+\def\compmain{%
+  \c@n\z@ \loop \ifnum\c@n<\outlen
+    \p@put\c@en \advance\c@n\@ne
+  \repeat}
+\catcode64=12 %-------------------------
+\outlen=10000
+\hsize=396pt \hoffset=28pt
+\vsize=720pt \voffset=-14pt \topskip=7.2pt
+\font\msym=cmr10 at 7.2pt \textfont0=\msym
+\font\malp=cmmi10 at 7.2pt \textfont1=\malp
+\font\tnorm=t1xtt at 7.2pt \tnorm
+\parindent=0pt
+\baselineskip=7.2pt
+\spaceskip=0.25em plus 0.25em
+\nopagenumbers
+\noindent\hbox to0pt{\hss $U =\;$0.\ }%
+\compmain
+\noindent\hbox to0pt{\ $\cdots$\hss}%
+\bye
